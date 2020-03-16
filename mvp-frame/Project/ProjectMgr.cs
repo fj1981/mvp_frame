@@ -31,6 +31,7 @@ public class ProjectMgr: Singleton<ProjectMgr>
     return "";
   }
 
+  ToolObj rootBoj_;
   public void OpenProject(string path, OnPrjLoadFininsh finish)
   {
     using (FileStream fsRead = new FileStream(path, FileMode.Open)) {
@@ -38,9 +39,9 @@ public class ProjectMgr: Singleton<ProjectMgr>
       byte[] heByte = new byte[fsLen];
       int r = fsRead.Read(heByte, 0, heByte.Length);
       string myStr = System.Text.Encoding.UTF8.GetString(heByte);
-      var dynamicObject = JsonConvert.DeserializeObject< ToolObj>(myStr);
-        TaskMgr.Instance.Init(dynamicObject);
-        finish ? .Invoke(dynamicObject);
+        rootBoj_ = JsonConvert.DeserializeObject< ToolObj>(myStr);
+        TaskMgr.Instance.Init(rootBoj_);
+        finish ? .Invoke(rootBoj_);
     }
   }
  }

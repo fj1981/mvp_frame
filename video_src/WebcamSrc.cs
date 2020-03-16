@@ -1,57 +1,122 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Drawing;
 using HalconDotNet;
 using Interface;
 
 namespace video_src
 {
-  public class PlugFactory : IPlugFactory
-  {
+  public class PlugInfoImpl :IPlugInfo {
     public string GetPlugName()
     {
       return WebcamSrc.PLUG_NAME;
     }
-
     public PlugType GetPlugType()
     {
       return PlugType.PT_SRC;
+    }
+    public Type GetPropType()
+    {
+      return typeof(WebcamProperty);
+    }
+
+    public string GetUUID()
+    {
+      return "EB7C4F05-7341-45D1-94EF-2EDAC3F6C8EB";
+    }
+  }
+
+  public class PlugFactory : IPlugFactory
+  {
+    internal readonly static IPlugInfo pluginfo_ = new PlugInfoImpl();
+    public IPlugInfo GetPlugInfo()
+    {
+      return pluginfo_;
     }
 
     public IPlugin NewPlug()
     {
       return new WebcamSrc();
     }
+
   }
+
+  public class WebcamProperty  :BaseProperty
+  {
+    private bool saveOnClose = true;
+    private string greetingText = "欢迎使用应用程序！";
+    private int itemsInMRU = 4;
+    private int maxRepeatRate = 10;
+    private bool settingsChanged = false;
+    private string appVersion = "1.0";
+
+    public bool SaveOnClose
+    {
+      get
+      {
+        return saveOnClose;
+      }
+      set { saveOnClose = value; }
+    }
+    public string GreetingText
+    {
+      get { return greetingText; }
+      set { greetingText = value; }
+    }
+    public int MaxRepeatRate
+    {
+      get { return maxRepeatRate; }
+      set { maxRepeatRate = value; }
+    }
+    public int ItemsInMRUList
+    {
+      get { return itemsInMRU; }
+      set { itemsInMRU = value; }
+    }
+    public bool SettingsChanged
+    {
+      get { return settingsChanged; }
+      set { settingsChanged = value; }
+    }
+
+    [DisplayName("中文名")]
+    public string AppVersion
+    {
+      get { return appVersion; }
+      set { appVersion = value; }
+    }
+
+    [DisplayName("点")]
+    public Point pt { get; set; }
+  }
+
 
   public class WebcamSrc : ISrcPlug
   {
     public static String PLUG_NAME = "DirectShowVideo";
+    WebcamProperty property_ = new WebcamProperty();
     public WebcamSrc()
     {
      // FilterInfoCollection videoDevices;
      // videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
     }
 
-
-    public string Name()
-    {
-      return PLUG_NAME;
-    }
     RunEvent param_;
-    public IPropertyData GetProperty()
+    public IPlugInfo GetPlugInfo()
     {
-      throw new NotImplementedException();
+      return PlugFactory.pluginfo_;
     }
 
-    public void SetProperty(IPropertyData prop)
+    BaseProperty IPlugin.GetProperty()
     {
-      throw new NotImplementedException();
+      return property_;
     }
 
+    public void SetProperty(object prop)
+    {
+      property_ = prop as WebcamProperty;
+    }
 
     public bool SetRunEvent(RunEvent param)
     {
@@ -86,6 +151,23 @@ namespace video_src
       ho_Image.Dispose();
       return true;
     }
+
+    public Ctx CallProcess(Ctx ctx)
+    {
+      throw new NotImplementedException();
+    }
+
+    public List<ParamDesc> InputParamDesc()
+    {
+      throw new NotImplementedException();
+    }
+
+    public List<ParamDesc> OutputParamDesc()
+    {
+      throw new NotImplementedException();
+    }
+
+   
   }
 
 

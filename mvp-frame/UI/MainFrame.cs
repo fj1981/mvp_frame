@@ -1,6 +1,9 @@
 ﻿using DevExpress.XtraTreeList;
 using DevExpress.XtraTreeList.Columns;
 using HalconDotNet;
+using JavaScriptEngineSwitcher.Core;
+using JavaScriptEngineSwitcher.V8;
+using mvp_frame.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,9 +17,13 @@ namespace mvp_frame
 {
   public partial class MainFrame : DevExpress.XtraBars.Ribbon.RibbonForm
   {
+    ProjectTreeController tree_controlle_;
+    PropertyController property_controller_;
     public MainFrame()
     {
       InitializeComponent();
+      tree_controlle_ = new ProjectTreeController(treeList2);
+      property_controller_ = new PropertyController(propertyGrid2);
     }
 
     void UpdateToolbarButtonState()
@@ -46,7 +53,7 @@ namespace mvp_frame
       {
         strFileName = ofd.FileName;
         ProjectMgr.Instance.OpenProject(strFileName,
-          treeList1.OnFileloadFinish);
+          tree_controlle_.OnFileloadFinish);
       }
     }
 
@@ -72,6 +79,22 @@ namespace mvp_frame
     private void OnLiveImageReady(HObject ho_Image)
     {
       HOperatorSet.DispObj(ho_Image, handle_);
+    }
+
+    private void barButtonItem3_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    {
+      DlgAddNewTool dlg = new DlgAddNewTool();
+      dlg.ShowDialog();
+    }
+
+    private void OnFocusItemChange(object sender, FocusedNodeChangedEventArgs e)
+    {
+      tree_controlle_.OnFocusChanged(e.Node);
+    }
+
+    private void OnPropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+    {
+      property_controller_.OnPropertyValueChanged();
     }
   }
 }

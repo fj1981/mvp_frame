@@ -66,10 +66,14 @@
       this.toolboxControl1 = new DevExpress.XtraToolbox.ToolboxControl();
       this.dockPanel5 = new DevExpress.XtraBars.Docking.DockPanel();
       this.dockPanel5_Container = new DevExpress.XtraBars.Docking.ControlContainer();
+      this.propertyGrid2 = new System.Windows.Forms.PropertyGrid();
       this.dockPanel4 = new DevExpress.XtraBars.Docking.DockPanel();
       this.dockPanel4_Container = new DevExpress.XtraBars.Docking.ControlContainer();
+      this.pictureBox1 = new System.Windows.Forms.PictureBox();
       this.dockPanel1 = new DevExpress.XtraBars.Docking.DockPanel();
       this.controlContainer1 = new DevExpress.XtraBars.Docking.ControlContainer();
+      this.treeList2 = new DevExpress.XtraTreeList.TreeList();
+      this.svgImageCollection1 = new DevExpress.Utils.SvgImageCollection(this.components);
       this.runLog = new DevExpress.XtraBars.Docking.DockPanel();
       this.dockPanel3_Container = new DevExpress.XtraBars.Docking.ControlContainer();
       this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -78,8 +82,7 @@
       this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
       this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
       this.imageCollection1 = new DevExpress.Utils.ImageCollection(this.components);
-      this.pictureBox1 = new System.Windows.Forms.PictureBox();
-      this.treeList1 = new ProjectTree();
+      this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
       ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.document2)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
@@ -90,17 +93,21 @@
       this.dockPanel2.SuspendLayout();
       this.dockPanel2_Container.SuspendLayout();
       this.dockPanel5.SuspendLayout();
+      this.dockPanel5_Container.SuspendLayout();
       this.dockPanel4.SuspendLayout();
       this.dockPanel4_Container.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
       this.dockPanel1.SuspendLayout();
       this.controlContainer1.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.treeList2)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.svgImageCollection1)).BeginInit();
       this.runLog.SuspendLayout();
       this.dockPanel3_Container.SuspendLayout();
       this.tabControl1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
       this.SuspendLayout();
       // 
       // documentGroup1
@@ -245,6 +252,7 @@
       this.barButtonItem3.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem3.ImageOptions.LargeImage")));
       this.barButtonItem3.Name = "barButtonItem3";
       this.barButtonItem3.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+      this.barButtonItem3.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem3_ItemClick);
       // 
       // barButtonItem4
       // 
@@ -440,11 +448,21 @@
       // 
       // dockPanel5_Container
       // 
+      this.dockPanel5_Container.Controls.Add(this.propertyGrid2);
       this.dockPanel5_Container.Location = new System.Drawing.Point(5, 23);
       this.dockPanel5_Container.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
       this.dockPanel5_Container.Name = "dockPanel5_Container";
       this.dockPanel5_Container.Size = new System.Drawing.Size(473, 371);
       this.dockPanel5_Container.TabIndex = 0;
+      // 
+      // propertyGrid2
+      // 
+      this.propertyGrid2.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.propertyGrid2.Location = new System.Drawing.Point(0, 0);
+      this.propertyGrid2.Name = "propertyGrid2";
+      this.propertyGrid2.Size = new System.Drawing.Size(473, 371);
+      this.propertyGrid2.TabIndex = 0;
+      this.propertyGrid2.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.OnPropertyValueChanged);
       // 
       // dockPanel4
       // 
@@ -468,6 +486,16 @@
       this.dockPanel4_Container.Size = new System.Drawing.Size(791, 492);
       this.dockPanel4_Container.TabIndex = 0;
       // 
+      // pictureBox1
+      // 
+      this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+      this.pictureBox1.Name = "pictureBox1";
+      this.pictureBox1.Size = new System.Drawing.Size(791, 492);
+      this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+      this.pictureBox1.TabIndex = 7;
+      this.pictureBox1.TabStop = false;
+      // 
       // dockPanel1
       // 
       this.dockPanel1.Controls.Add(this.controlContainer1);
@@ -482,12 +510,27 @@
       // 
       // controlContainer1
       // 
-      this.controlContainer1.Controls.Add(this.treeList1);
+      this.controlContainer1.Controls.Add(this.treeList2);
       this.controlContainer1.Location = new System.Drawing.Point(4, 23);
       this.controlContainer1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
       this.controlContainer1.Name = "controlContainer1";
       this.controlContainer1.Size = new System.Drawing.Size(327, 771);
       this.controlContainer1.TabIndex = 0;
+      // 
+      // treeList2
+      // 
+      this.treeList2.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.treeList2.Location = new System.Drawing.Point(0, 0);
+      this.treeList2.Name = "treeList2";
+      this.treeList2.Size = new System.Drawing.Size(327, 771);
+      this.treeList2.StateImageList = this.svgImageCollection1;
+      this.treeList2.TabIndex = 0;
+      this.treeList2.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.OnFocusItemChange);
+      // 
+      // svgImageCollection1
+      // 
+      this.svgImageCollection1.Add("open", "image://svgimages/dashboards/open.svg");
+      this.svgImageCollection1.Add("actions_list", "image://svgimages/icon builder/actions_list.svg");
       // 
       // runLog
       // 
@@ -540,7 +583,7 @@
       this.tabPage2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
       this.tabPage2.Name = "tabPage2";
       this.tabPage2.Padding = new System.Windows.Forms.Padding(2, 1, 2, 1);
-      this.tabPage2.Size = new System.Drawing.Size(201, 222);
+      this.tabPage2.Size = new System.Drawing.Size(781, 222);
       this.tabPage2.TabIndex = 1;
       this.tabPage2.Text = "tabPage2";
       this.tabPage2.UseVisualStyleBackColor = true;
@@ -566,23 +609,9 @@
       // 
       this.imageCollection1.ImageStream = ((DevExpress.Utils.ImageCollectionStreamer)(resources.GetObject("imageCollection1.ImageStream")));
       // 
-      // pictureBox1
+      // errorProvider1
       // 
-      this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-      this.pictureBox1.Name = "pictureBox1";
-      this.pictureBox1.Size = new System.Drawing.Size(791, 492);
-      this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-      this.pictureBox1.TabIndex = 7;
-      this.pictureBox1.TabStop = false;
-      // 
-      // treeList1
-      // 
-      this.treeList1.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.treeList1.Location = new System.Drawing.Point(0, 0);
-      this.treeList1.Name = "treeList1";
-      this.treeList1.Size = new System.Drawing.Size(327, 771);
-      this.treeList1.TabIndex = 0;
+      this.errorProvider1.ContainerControl = this;
       // 
       // MainFrame
       // 
@@ -612,18 +641,22 @@
       this.dockPanel2.ResumeLayout(false);
       this.dockPanel2_Container.ResumeLayout(false);
       this.dockPanel5.ResumeLayout(false);
+      this.dockPanel5_Container.ResumeLayout(false);
       this.dockPanel4.ResumeLayout(false);
       this.dockPanel4_Container.ResumeLayout(false);
       this.dockPanel4_Container.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
       this.dockPanel1.ResumeLayout(false);
       this.controlContainer1.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.treeList2)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.svgImageCollection1)).EndInit();
       this.runLog.ResumeLayout(false);
       this.dockPanel3_Container.ResumeLayout(false);
       this.tabControl1.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.imageCollection1)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -677,9 +710,11 @@
     private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
     private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
     private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar1;
-    private UI.ToolProperty propertyGrid1;
     private System.Windows.Forms.PictureBox pictureBox1;
-    private ProjectTree treeList1;
+    private DevExpress.XtraTreeList.TreeList treeList2;
+    private DevExpress.Utils.SvgImageCollection svgImageCollection1;
+    private System.Windows.Forms.PropertyGrid propertyGrid2;
+    private System.Windows.Forms.ErrorProvider errorProvider1;
   }
 }
 

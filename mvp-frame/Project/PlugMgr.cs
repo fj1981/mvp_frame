@@ -13,7 +13,7 @@ namespace mvp_frame
 {
   class PlugMgr  : Singleton<PlugMgr>
   {
-    ArrayList plugins_ = new ArrayList();
+    List<IPlugFactory> plugins_ = new List<IPlugFactory>();
     public void Init()
     {
       string[] files = Directory.GetFiles(Application.StartupPath + "\\Plugins");
@@ -30,7 +30,7 @@ namespace mvp_frame
             {
               if (t.GetInterface("IPlugFactory") != null)
               {
-                plugins_.Add(ab.CreateInstance(t.FullName));
+                plugins_.Add(ab.CreateInstance(t.FullName) as IPlugFactory);
               }
             }
           }
@@ -40,6 +40,16 @@ namespace mvp_frame
 
         }
       }
+    }
+    public IPlugFactory GetFactory(String guid)
+    {
+       foreach(var e in plugins_)  {
+        if(guid == e.GetPlugInfo().GetUUID())
+        {
+          return e;
+        }
+      }
+      return null;
     }
 
     public bool GetSrcPlug<T>(String name, ref T tool)

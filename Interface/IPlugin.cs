@@ -1,26 +1,19 @@
 ﻿using HalconDotNet;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Interface
 {
-  public struct ParamDesc
+  public class ParamDesc
   {
-    ParamDesc(DataType type, string name) {
-      type_ = type;
-      name_ = name;
-    }
-    DataType type_;
-    string name_;
+    DataType type { get; set; }
+    string name { get; set; }
   }
 
-  public class IPropertyData
-  {
-     
-  }
 
   public enum PlugType
   {
@@ -28,32 +21,60 @@ namespace Interface
     PT_PROC
   }
 
-  public interface IPlugFactory
+  public interface IPlugInfo
   {
     string GetPlugName();
+    string GetUUID();
     PlugType GetPlugType();
-    IPlugin NewPlug();
-
+    Type GetPropType();
   }
 
+  public class BaseProperty
+  {
+    public string name {
+      get;
+      set;
+    }
+
+    [DisplayName("1 输入") ,Category("变量描述")]
+    public List<ParamDesc> InputParam
+    {
+      get;
+      set;
+    }
+
+    [DisplayName("2 输出"), Category("变量描述")]
+    public List<ParamDesc> OutputParam
+    {
+      get;
+      set;
+    }
+  }
+
+  public interface IPlugFactory
+  {
+    IPlugInfo GetPlugInfo();
+    IPlugin NewPlug();
+  }
+
+  //
   public interface IPlugin
   {
-    string Name();
-    IPropertyData GetProperty();
-    void SetProperty(IPropertyData prop);
- 
+    IPlugInfo GetPlugInfo();
+    BaseProperty GetProperty();
+    void SetProperty(object BaseProperty);
   }
 
   public interface IProcPlug : IPlugin
   {
     Ctx CallProcess(Ctx ctx);
-    List<ParamDesc> InputParamDesc();
-    List<ParamDesc> OutputParamDesc();
-  }
+   }
 
-  public interface ISrcPlug:IPlugin
+  public interface ISrcPlug: IProcPlug
   {
     bool SetRunEvent(RunEvent param);
     bool Run();
   }
+
+
 }
