@@ -1,4 +1,4 @@
-﻿using Interface;
+﻿using MVPlugIn;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +12,10 @@ namespace mvp_frame
     private List<Task> tasks_;
     public void Init(ToolObj tools)
     {
+      if(tools != null)
+      {
+        tools.UpdateProperty(false);
+      }
       tasks_ = new List<Task>();
       foreach (var tool in tools.children)
       {
@@ -21,8 +25,13 @@ namespace mvp_frame
       }
     }
 
+
     public bool RunTasks(NotifyImageReady liveImageArrived)
     {
+      if(tasks_ == null)
+      {
+        return false;
+      }
       foreach(var task in tasks_)
       {
         task.SetShowDelegate(liveImageArrived);

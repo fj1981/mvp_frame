@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Interface
+namespace MVPlugIn
 {
 public class Ctx
 {
   private Dictionary<string, DataWapper> datas_ = new Dictionary<string, DataWapper>();
-  public bool SetData<T>(string val_name, T data) {
+  private Dictionary<int, DataWapper>  displays_ = new Dictionary<int, DataWapper>();
+    public bool SetData<T>(string val_name, T data) {
     DataWapper data2 = new DataWapper();
     if (!data2.SetData(data))
     {
@@ -25,8 +26,21 @@ public class Ctx
     }
     return default ( T );
   }
-
-  public bool Merge(Ctx ctx)
+    public bool SetDisplayImage<T>(T img, int index = 0)
+    {
+      DataWapper data2 = new DataWapper();
+      if (!data2.SetData(img))
+      {
+        return false;
+      }
+      displays_[index] = data2;
+      return true;
+    }
+    public Dictionary<int, DataWapper> GetDisplay()
+    {
+      return displays_;
+    }
+    public bool Merge(Ctx ctx)
   {
     var first = datas_;
     var second = ctx.datas_;
@@ -40,16 +54,31 @@ public class Ctx
     return true;
   }
 
-  public  Ctx GetCopy()
+  public bool GetCopy(out Ctx copyCtx,List<ParamDesc> desc = null)
   {
-      Ctx ret = new Ctx();
-      var first = new Dictionary<string, DataWapper>();
-      ret.datas_ = first;
-      foreach (var item in datas_)
+      copyCtx = new Ctx();
+      var data2 = new Dictionary<string, DataWapper>();
+      copyCtx.datas_ = data2;
+      if(null == desc)
       {
-        first[item.Key] = item.Value;
+        foreach (var item in datas_)
+        {
+          data2[item.Key] = item.Value;
+        }
+        return true;
       }
-      return ret;
+      else
+      {
+        foreach(var item in desc)
+        {
+          if (datas_.ContainsKey(item.name))
+          {
+            data2[item.name] = datas_[item.name];
+          }
+        }
+        return true;
+      }
+      return false;
     }
 }
 }

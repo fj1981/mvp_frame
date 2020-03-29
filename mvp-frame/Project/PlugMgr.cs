@@ -1,4 +1,4 @@
-﻿using Interface;
+﻿using MVPlugIn;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,11 +13,11 @@ namespace mvp_frame
 {
   class PlugMgr  : Singleton<PlugMgr>
   {
-    List<IPlugFactory> plugins_ = new List<IPlugFactory>();
+    public List<BasePlugFactory> Plugins { get; set; } = new List<BasePlugFactory>();
     public void Init()
     {
       string[] files = Directory.GetFiles(Application.StartupPath + "\\Plugins");
-
+      Plugins.Add(new FlowPlugFactory());
       foreach (string file in files) {
         try
         {
@@ -30,20 +30,22 @@ namespace mvp_frame
             {
               if (t.GetInterface("IPlugFactory") != null)
               {
-                plugins_.Add(ab.CreateInstance(t.FullName) as IPlugFactory);
+                var inst = ab.CreateInstance(t.FullName) as BasePlugFactory;
+                if(null != inst)
+                  Plugins.Add(inst);
               }
             }
-          }
+          }                                               
         }
         catch(Exception e)
         {
-
+          Console.WriteLine(e.ToString());
         }
       }
     }
-    public IPlugFactory GetFactory(String guid)
+    public BasePlugFactory GetFactory(String guid)
     {
-       foreach(var e in plugins_)  {
+       foreach(var e in Plugins)  {
         if(guid == e.GetPlugInfo().GetUUID())
         {
           return e;
@@ -52,10 +54,11 @@ namespace mvp_frame
       return null;
     }
 
-    public bool GetSrcPlug<T>(String name, ref T tool)
+    public bool GetSrcPlug<T>(String name, out T tool)
     {
-      if(plugins_.Count >= 1) {
-        tool = (T)(plugins_[0] as IPlugFactory).NewPlug();
+      tool = default(T);
+      if (Plugins.Count >= 1) {
+        tool = (T)(Plugins[0] as BasePlugFactory).NewPlug();
         return true;
       }
       return false;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVPlugIn;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -14,7 +15,38 @@ namespace mvp_frame.UI
     public DlgAddNewTool()
     {
       InitializeComponent();
+      InitListView();
+    }
 
+    public void InitListView()
+    {
+      this.imageListBoxControl1.BeginUpdate();  
+
+      foreach(var f in PlugMgr.Instance.Plugins)
+      {
+        var info = f.GetPlugInfo();
+        if (info.GetPlugType() != MVPlugIn.PlugType.PT_FLOW)
+        {
+          var text = info.GetPlugName() + "   < " + info.GetUUID() +" >    ";
+          text += info.GetDescription();
+          this.imageListBoxControl1.Items.Add(f, 0);
+        }
+      }
+      this.imageListBoxControl1.EndUpdate();
+    }
+
+    private void simpleButton1_Click(object sender, EventArgs e)
+    {
+      var factory = this.imageListBoxControl1.SelectedValue as BasePlugFactory;
+      if(ProjectMgr.Instance.NewProcess(factory.NewPlug()))
+      {
+        this.Dispose();
+      }
+    }
+
+    private void simpleButton2_Click(object sender, EventArgs e)
+    {
+      this.Dispose();
     }
   }
 }

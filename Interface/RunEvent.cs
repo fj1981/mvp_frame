@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Interface
+namespace MVPlugIn
 {
   public delegate void NotifyImageReady(HObject ho_Image);
   public delegate HObject FuncGetImage();

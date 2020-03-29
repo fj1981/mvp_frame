@@ -1,4 +1,5 @@
-﻿using Interface;
+﻿using MVPlugIn;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,32 @@ namespace mvp_frame
 {
   public enum TOOL_CHANGED_TYPE {
     TCT_MODIFY,
-    TCT_DELLTE,
+    TCT_DELETE,
     TCT_FOCUS,
     TCT_ADD,
   }
-  public delegate void ChangedNotify(TOOL_CHANGED_TYPE type, ToolObj cur, ToolObj parent);
+  public class NotifyParam
+  {
+    public NotifyParam()
+    {
+
+    }
+    public NotifyParam(TOOL_CHANGED_TYPE type,
+      ToolObj current, ToolObj parent, int index = -1)
+    {
+      Type = type;
+      Current = current;
+      Parent = parent;
+      Index = index;
+    }
+
+    public TOOL_CHANGED_TYPE Type { get; set; }
+    public ToolObj Current { get; set; }
+    public ToolObj Parent { get; set; }
+    public int Index { get; set; } = -1;
+  }
+
+  public delegate void ChangedNotify(NotifyParam p);
 
   public class ToolObj
   {
@@ -30,15 +52,15 @@ namespace mvp_frame
         if(name_ != value)
         {
           name_ = value;
-          ModifyNoify();
+          ModifyNotify();
         }
       }
     }
     /// <summary>
     ///
     /// </summary>
-    int type_;
-    public int type {
+    PlugType type_;
+    public PlugType type {
       get {
         return type_;
       }
@@ -46,7 +68,7 @@ namespace mvp_frame
         if (type_ != value)
         {
           type_ = value;
-          ModifyNoify();
+          ModifyNotify();
         }
       }
     }
@@ -63,49 +85,11 @@ namespace mvp_frame
         if (property_ != value)
         {
           property_ = value;
-          ModifyNoify();
+          ModifyNotify();
         }
       }
     }
-    /// <summary>
-    ///
-    /// </summary>
-    List<ParamDesc> inputs_;
-    public List<ParamDesc> inputs {
-      get
-      {
-        return inputs_;
-      }
-      set
-      {
-        if (inputs_ != value)
-        {
-          inputs_ = value;
-          ModifyNoify();
-        }
-      }
-    }
-    /// <summary>
-    ///
-    /// </summary>
-    public List<ParamDesc> outputs_;
-    public List<ParamDesc> outputs {
-      get
-      {
-        return outputs_;
-      }
-      set
-      {
-        if (outputs_ != value)
-        {
-          outputs_ = value;
-          ModifyNoify();
-        }
-      }
-    }
-    /// <summary>
-    ///
-    /// </summary>
+    
     public List<ToolObj> children {
       get;
       set;
@@ -120,10 +104,10 @@ namespace mvp_frame
       bool ret = false;
       foreach(var e in children )
       {
-        if (e != null && e.treeId_ == id)
+        if (e != null && e.tree_id_ == id)
         {
           children.Remove(e);
-          changedNotify?.Invoke(TOOL_CHANGED_TYPE.TCT_MODIFY, e, this);
+          changedNotify?.Invoke(new NotifyParam(TOOL_CHANGED_TYPE.TCT_DELETE, e, this));
           ret = true;
           break;
         }
@@ -131,8 +115,20 @@ namespace mvp_frame
       return ret;
     }
 
-    public bool AddObj(int id, ToolObj newObj,bool insert )
+    public bool AddObj(int id, ToolObj obj,bool insert )
     {
+      if(id == -1 && insert )
+      {
+        if(null == children)
+        {
+          children = new List<ToolObj>();
+        }
+        obj.parent = new WeakReference(this);
+        obj.UpdateProperty(false);
+        children.Add(obj);
+        changedNotify?.Invoke(new NotifyParam(TOOL_CHANGED_TYPE.TCT_ADD, obj, this));
+        return true;
+      }
       if (children == null)
       {
         return false;
@@ -142,7 +138,7 @@ namespace mvp_frame
       foreach (var e in children)
       {
         ++index;
-        if (e != null && e.treeId_ == id)
+        if (e != null && e.tree_id_ == id)
         {
           if(insert)
           {
@@ -150,13 +146,15 @@ namespace mvp_frame
             {
               e.children = new List<ToolObj>();
             }
-            e.children.Add(newObj);
-            changedNotify?.Invoke(TOOL_CHANGED_TYPE.TCT_MODIFY, newObj, e);
+            obj.parent = new WeakReference(e);
+            e.children.Add(obj);
+            changedNotify?.Invoke(new NotifyParam(TOOL_CHANGED_TYPE.TCT_ADD, obj, e));
           }
           else
           {
-            children.Insert(index, newObj);
-            changedNotify?.Invoke(TOOL_CHANGED_TYPE.TCT_MODIFY, newObj, this);
+            obj.parent = new WeakReference(this);
+            children.Insert(index, obj);
+            changedNotify?.Invoke(new NotifyParam(TOOL_CHANGED_TYPE.TCT_ADD, obj, this,index));
           }
           ret = true;
           break;
@@ -165,14 +163,19 @@ namespace mvp_frame
       return ret;
     }
 
-    void ModifyNoify()
+    void ModifyNotify()
     {
-      changedNotify?.Invoke(TOOL_CHANGED_TYPE.TCT_MODIFY, this, null);
+      ToolObj parent1 = null;
+      if(null != parent)
+      {
+        parent1 = parent.IsAlive ? parent.Target as ToolObj : null;
+      }
+     changedNotify?.Invoke(new NotifyParam(TOOL_CHANGED_TYPE.TCT_MODIFY, this, parent1));
     }
 
-    public ToolObj GetObjByTreeId(int treeId)
+    public ToolObj GetObjByTreeId(int tree_id)
     {
-      if (treeId == treeId_)
+      if (tree_id == tree_id_)
       {
         return this;
       }
@@ -180,7 +183,7 @@ namespace mvp_frame
       {
         foreach (var e in children)
         {
-          var ret = e.GetObjByTreeId(treeId);
+          var ret = e.GetObjByTreeId(tree_id);
           if (ret != null)
           {
             return ret;
@@ -190,20 +193,64 @@ namespace mvp_frame
       return null;
     }
 
-    public int treeId_ = -1;
+    public void UpdateProperty(bool for_save)
+    {
+      if(!for_save && plug_ == null && guid != null)
+      {
+        var f = PlugMgr.Instance.GetFactory(guid);
+        if(f != null)
+        {
+          plug_ = f.NewPlug();
+        }
+      }
+      if(plug_ != null)
+      {
+        if(for_save)
+        {
+          property_ = JsonConvert.SerializeObject(plug_.GetProperty());
+        }
+        else
+        {
+          BaseProperty prop;
+          if (null != property_)
+          {
+             prop = JsonConvert.DeserializeObject(property_, plug_.GetPlugInfo().GetPropType()) as BaseProperty;
+            plug_.SetProperty(prop);
+          }
+          else
+          {
+            prop = plug_.GetProperty();
+          }
+            (prop as BaseProperty).UpdateDefault();
+        }
+      }
+
+      if (children != null)
+      {
+        foreach (var e in children)
+        {
+          e.UpdateProperty(for_save);
+        }
+      }
+    }
+
+    public int tree_id_ = -1;
+    [JsonIgnore]
     public IPlugin plug_;
-    static ToolObj focusTool_;
+    [JsonIgnore]
+    public WeakReference parent { get; set; }
+    static ToolObj focus_tool_;
     public static ToolObj focusTool
     {
       set {
-        if(value != focusTool_)
+        if(value != focus_tool_)
         {
-          focusTool_ = value;
-          changedNotify?.Invoke(TOOL_CHANGED_TYPE.TCT_FOCUS, focusTool_, null);
+          focus_tool_ = value;
+          changedNotify?.Invoke(new NotifyParam(TOOL_CHANGED_TYPE.TCT_FOCUS, focus_tool_, null));
         }
       }
       get {
-        return focusTool_;
+        return focus_tool_;
       }
     }
 
