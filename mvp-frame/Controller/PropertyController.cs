@@ -17,27 +17,42 @@ namespace mvp_frame
       property_ = property;
       ToolObj.changedNotify += OnToolChangedNotify;
     }
-
+    ToolObj curTool_;
     void OnUpdateProperty(ToolObj tool)
     {
-      if(null != tool)
+      curTool_ = tool;
+      if (null != tool && null != tool.plug_)
       {
         property_.SelectedObject = tool.plug_.GetProperty();
       }
-      //
+      else
+      {
+        property_.SelectedObject = null;
+      }
     }
 
     public void OnPropertyValueChanged()
     {
-
+       if(curTool_ != null )
+      {
+        if(property_.SelectedObject != null)
+        {
+          curTool_.property = JsonConvert.SerializeObject(property_.SelectedObject);
+        }
+        else
+        {
+          curTool_.property = "";
+        }
+      
+      }
    
     }
 
-    void OnToolChangedNotify(TOOL_CHANGED_TYPE type, ToolObj cur, ToolObj parent)
+    void OnToolChangedNotify(NotifyParam np)
     {
-      if(type == TOOL_CHANGED_TYPE.TCT_FOCUS)
+      if(np.Type == TOOL_CHANGED_TYPE.TCT_FOCUS)
       {
-        OnUpdateProperty(cur);
+        OnUpdateProperty(np.Current);
       }
      
     }

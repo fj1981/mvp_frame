@@ -1,4 +1,5 @@
-﻿using Interface;
+﻿using HalconDotNet;
+using MVPlugIn;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,39 +17,93 @@ namespace mvp_frame
       notifyImageReady_ = notifyImageReady;
     }
 
+    ToolObj toolObj_;
     public void Init(ToolObj tool)
     {
-
+      toolObj_ = tool;
     }
 
     class RunData
     {
-      public ISrcPlug plug;
+      public ToolObj toolObj;
       public RunEvent event_;
     }
 
-    public void Run()
+    public bool Run()
     {
-      ISrcPlug plug = null;
-      if (PlugMgr.Instance.GetSrcPlug<ISrcPlug>("", ref plug))
+      if(toolObj_ == null)
       {
-        ParameterizedThreadStart threadStart = new ParameterizedThreadStart(RunLive);
-        Thread t = new Thread(threadStart);
-        t.IsBackground = true;
-        RunData rd= new RunData();
-        rd.event_ = new RunEvent(notifyImageReady_, null);
-        rd.plug = plug;
-        t.Start(rd);
-        }
+        return false;
+      }
+      ParameterizedThreadStart threadStart = new ParameterizedThreadStart(RunLive);
+      Thread t = new Thread(threadStart);
+      t.IsBackground = true;
+      RunData rd = new RunData();
+      rd.event_ = new RunEvent(notifyImageReady_, null);
+      rd.toolObj = toolObj_;
+      t.Start(rd);
+      return true; 
     }
 
     static void RunLive(object data)
     {
-      if (data is RunData)
+      if (!(data is RunData))
       {
-        var wrap = data as RunData;
-        wrap.plug.SetRunEvent(wrap.event_);
-        wrap.plug.Run();
+        return;
+      }
+      var wrap = data as RunData;
+      if(null == wrap.toolObj || null == wrap.toolObj.children)
+      {
+        return;
+      }
+      var aa2 = Thread.CurrentThread.ManagedThreadId.ToString();
+      //wrap.event_.NotifyLiveData(null);
+      Ctx ctx = new Ctx();
+
+      foreach (var aa in wrap.toolObj.children)
+      {
+        try
+        {
+          var plug = (aa.plug_ as IProcPlug);
+    
+          if (null != plug)
+          {
+            Ctx ctxIn, ctxOut, ctxOut1;
+            if (!ctx.GetCopy(out ctxIn, plug.GetProperty()?.InputParams))
+            {
+              return;
+            }
+
+            plug.CallProcess(ctxIn, out ctxOut);
+            if(ctxOut != null)
+            {
+              try {
+                var show1 = ctxOut.GetDisplay()[0] as DataWapper;
+                if (null != show1)
+                {
+                  wrap.event_.NotifyLiveData(show1.GetData<HObject>());
+                  //rap.event_.NotifyCaptureData
+                  //notifyImageReady_.Invoke()
+                }
+              }
+              catch (Exception e)
+              { }
+              
+            }
+
+        
+            if (!ctxOut.GetCopy(out ctxOut1, plug.GetProperty()?.OutputParams))
+            {
+              return;
+            }
+            ctx.Merge(ctxOut1);
+          }
+        }
+        catch(Exception e)
+        {
+          break;
+        }
+
       }
     }
   }

@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mvp-frame", "mvp-frame\mvp-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interface", "Interface\Interface.csproj", "{54CD5704-F5E6-40E5-916E-7AA2E8EAE655}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "video_src", "video_src\video_src.csproj", "{7B554A5D-4A95-4CF5-B84D-EB8779F19CF0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "plug_video_src", "video_src\plug_video_src.csproj", "{7B554A5D-4A95-4CF5-B84D-EB8779F19CF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "plug_trigger_demo", "plug_trigger_demo\plug_trigger_demo.csproj", "{B93CCC17-2BFF-415B-8902-4644C52FC737}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,14 @@ Global
 		{7B554A5D-4A95-4CF5-B84D-EB8779F19CF0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7B554A5D-4A95-4CF5-B84D-EB8779F19CF0}.Release|x64.ActiveCfg = Release|x64
 		{7B554A5D-4A95-4CF5-B84D-EB8779F19CF0}.Release|x64.Build.0 = Release|x64
+		{B93CCC17-2BFF-415B-8902-4644C52FC737}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B93CCC17-2BFF-415B-8902-4644C52FC737}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B93CCC17-2BFF-415B-8902-4644C52FC737}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B93CCC17-2BFF-415B-8902-4644C52FC737}.Debug|x64.Build.0 = Debug|Any CPU
+		{B93CCC17-2BFF-415B-8902-4644C52FC737}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B93CCC17-2BFF-415B-8902-4644C52FC737}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B93CCC17-2BFF-415B-8902-4644C52FC737}.Release|x64.ActiveCfg = Release|Any CPU
+		{B93CCC17-2BFF-415B-8902-4644C52FC737}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

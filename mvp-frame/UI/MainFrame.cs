@@ -11,6 +11,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace mvp_frame
@@ -24,6 +25,7 @@ namespace mvp_frame
       InitializeComponent();
       tree_controlle_ = new ProjectTreeController(treeList2);
       property_controller_ = new PropertyController(propertyGrid2);
+      ProjectMgr.Instance.onPrjLoadFininsh = tree_controlle_.OnFileloadFinish;
     }
 
     void UpdateToolbarButtonState()
@@ -52,14 +54,13 @@ namespace mvp_frame
       if (ofd.ShowDialog() == DialogResult.OK)
       {
         strFileName = ofd.FileName;
-        ProjectMgr.Instance.OpenProject(strFileName,
-          tree_controlle_.OnFileloadFinish);
+        ProjectMgr.Instance.OpenProject(strFileName);
       }
     }
 
     private void SaveFile_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
     {
-
+      ProjectMgr.Instance.SaveProject();
     }
 
     private void SaveAs_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -70,6 +71,7 @@ namespace mvp_frame
     HTuple handle_ = null;
     private void barButtonItem6_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
     {
+      var aa2 = Thread.CurrentThread.ManagedThreadId.ToString();
       HOperatorSet.OpenWindow(2, 2, 640, 480, pictureBox1.Handle, "visible", "", out handle_);
       TaskMgr.Instance.RunTasks(OnLiveImageReady);
     }
@@ -78,12 +80,23 @@ namespace mvp_frame
 
     private void OnLiveImageReady(HObject ho_Image)
     {
-      HOperatorSet.DispObj(ho_Image, handle_);
+      var aa2 = Thread.CurrentThread.ManagedThreadId.ToString();
+      if (null != ho_Image)
+      {
+        HOperatorSet.DispObj(ho_Image, handle_);
+      }
+   
     }
 
     private void barButtonItem3_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
     {
       DlgAddNewTool dlg = new DlgAddNewTool();
+      dlg.ShowDialog();
+    }
+
+    private void barButtonItem4_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    {
+      DlgAddNewFlow dlg = new DlgAddNewFlow();
       dlg.ShowDialog();
     }
 
@@ -96,5 +109,17 @@ namespace mvp_frame
     {
       property_controller_.OnPropertyValueChanged();
     }
+
+    private void treeList2_BeforeCheckNode(object sender, CheckNodeEventArgs e)
+    {
+      tree_controlle_.BeforeCheckNode(sender,e);
+    }
+
+    private void treeList2_AfterCheckNode(object sender, NodeEventArgs e)
+    {
+      tree_controlle_.AfterCheckNode(sender, e);
+    }
+
+
   }
 }
