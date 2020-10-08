@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseTrigger.cs" />
     <Compile Include="Ctx.cs" />
     <Compile Include="DataWapper.cs" />
     <Compile Include="IPlugin.cs" />

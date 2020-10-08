@@ -1,12 +1,8 @@
 ﻿using MVPlugIn;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace mvp_frame
@@ -52,6 +48,19 @@ namespace mvp_frame
         }
       }
       return null;
+    }
+
+    public List<ISrcPlug> GetSrcPlugs()
+    {
+      var ret = new List<ISrcPlug>();
+      foreach (var e in Plugins)
+      {
+        if (PlugType.PT_SRC == e.GetPlugInfo().GetPlugType())
+        {
+          ret.Add(e.NewPlug() as ISrcPlug);
+        }
+      }
+      return ret;
     }
 
     public bool GetSrcPlug<T>(String name, out T tool)

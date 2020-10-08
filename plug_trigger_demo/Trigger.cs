@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace MVPlugIn
 {
@@ -59,29 +56,30 @@ namespace MVPlugIn
     }
   }
 
-  public class Trigger : IProcPlug
+  public class Trigger : BaseTrigger
   {
-    IPlugInfo IPlugin.GetPlugInfo()
+    public override IPlugInfo GetPlugInfo()
     {
       return PlugFactory.pluginfo_;
     }
     Property property_ = new Property();
-    BaseProperty IPlugin.GetProperty()
+    public override BaseProperty GetProperty()
     {
       return property_;
     }
 
-    void IPlugin.SetProperty(object BaseProperty)
+    public override void SetProperty(object BaseProperty)
     {
       property_ = BaseProperty as Property;
     }
 
-    public bool CallProcess(Ctx ctxIn, out Ctx ctxOut)
+    public override bool RunTrigger()
     {
-      ctxOut = new Ctx();
-      Thread.Sleep(1000);
-
-      ctxOut.SetData<bool>(property_.OutputName(0), true);
+      while(!stopState_)
+      {
+        Trigger();
+        Thread.Sleep(1000);
+      }
       return true;
     }
   }

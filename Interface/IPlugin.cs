@@ -173,6 +173,8 @@ namespace MVPlugIn
   {
     bool SetRunEvent(RunEvent param);
     bool Run();
+    List<String> GetSupplyVideoList();
+    bool SetCurentDeviceID(String devId);
   }
 
 

@@ -30,8 +30,8 @@
     {
       this.components = new System.ComponentModel.Container();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainFrame));
-      DevExpress.Utils.Animation.PushTransition pushTransition1 = new DevExpress.Utils.Animation.PushTransition();
-      DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+      DevExpress.Utils.Animation.PushTransition pushTransition2 = new DevExpress.Utils.Animation.PushTransition();
+      DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
       this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
       this.document2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
       this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
@@ -48,15 +48,18 @@
       this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
       this.barButtonItem4 = new DevExpress.XtraBars.BarButtonItem();
       this.barButtonItem5 = new DevExpress.XtraBars.BarButtonItem();
-      this.barButtonItem6 = new DevExpress.XtraBars.BarButtonItem();
-      this.barButtonItem7 = new DevExpress.XtraBars.BarButtonItem();
-      this.barButtonItem8 = new DevExpress.XtraBars.BarButtonItem();
-      this.barButtonItem9 = new DevExpress.XtraBars.BarButtonItem();
+      this.barButtonRun = new DevExpress.XtraBars.BarButtonItem();
+      this.barButtonPause = new DevExpress.XtraBars.BarButtonItem();
+      this.barButtonStop = new DevExpress.XtraBars.BarButtonItem();
+      this.barButtonResume = new DevExpress.XtraBars.BarButtonItem();
       this.barButtonItem10 = new DevExpress.XtraBars.BarButtonItem();
+      this.barButtonItem11 = new DevExpress.XtraBars.BarButtonItem();
+      this.barButtonItem12 = new DevExpress.XtraBars.BarButtonItem();
       this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
       this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
       this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
       this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+      this.ribbonPageGroup4 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
       this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
       this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
       this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
@@ -69,6 +72,8 @@
       this.propertyGrid2 = new System.Windows.Forms.PropertyGrid();
       this.dockPanel4 = new DevExpress.XtraBars.Docking.DockPanel();
       this.dockPanel4_Container = new DevExpress.XtraBars.Docking.ControlContainer();
+      this.panel1 = new System.Windows.Forms.Panel();
+      this.pictureBox2 = new System.Windows.Forms.PictureBox();
       this.pictureBox1 = new System.Windows.Forms.PictureBox();
       this.dockPanel1 = new DevExpress.XtraBars.Docking.DockPanel();
       this.controlContainer1 = new DevExpress.XtraBars.Docking.ControlContainer();
@@ -96,6 +101,8 @@
       this.dockPanel5_Container.SuspendLayout();
       this.dockPanel4.SuspendLayout();
       this.dockPanel4_Container.SuspendLayout();
+      this.panel1.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
       this.dockPanel1.SuspendLayout();
       this.controlContainer1.SuspendLayout();
@@ -152,18 +159,19 @@
             this.barButtonItem3,
             this.barButtonItem4,
             this.barButtonItem5,
-            this.barButtonItem6,
-            this.barButtonItem7,
-            this.barButtonItem8,
-            this.barButtonItem9,
-            this.barButtonItem10});
+            this.barButtonRun,
+            this.barButtonPause,
+            this.barButtonStop,
+            this.barButtonResume,
+            this.barButtonItem10,
+            this.barButtonItem11,
+            this.barButtonItem12});
       this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-      this.ribbonControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-      this.ribbonControl1.MaxItemId = 17;
+      this.ribbonControl1.MaxItemId = 20;
       this.ribbonControl1.Name = "ribbonControl1";
       this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
-      this.ribbonControl1.Size = new System.Drawing.Size(1615, 147);
+      this.ribbonControl1.Size = new System.Drawing.Size(1060, 143);
       this.ribbonControl1.StatusBar = this.ribbonStatusBar1;
       // 
       // barButtonItem1
@@ -185,7 +193,7 @@
       // workspaceManager1
       // 
       this.workspaceManager1.TargetControl = this;
-      this.workspaceManager1.TransitionType = pushTransition1;
+      this.workspaceManager1.TransitionType = pushTransition2;
       // 
       // barButtonItem2
       // 
@@ -273,42 +281,45 @@
       this.barButtonItem5.Name = "barButtonItem5";
       this.barButtonItem5.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
       // 
-      // barButtonItem6
+      // barButtonRun
       // 
-      this.barButtonItem6.Caption = "运行";
-      this.barButtonItem6.Id = 12;
-      this.barButtonItem6.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem6.ImageOptions.Image")));
-      this.barButtonItem6.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem6.ImageOptions.LargeImage")));
-      this.barButtonItem6.Name = "barButtonItem6";
-      this.barButtonItem6.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-      this.barButtonItem6.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem6_ItemClick);
+      this.barButtonRun.Caption = "运行";
+      this.barButtonRun.Id = 12;
+      this.barButtonRun.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonRun.ImageOptions.Image")));
+      this.barButtonRun.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonRun.ImageOptions.LargeImage")));
+      this.barButtonRun.Name = "barButtonRun";
+      this.barButtonRun.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+      this.barButtonRun.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonRun_ItemClick);
       // 
-      // barButtonItem7
+      // barButtonPause
       // 
-      this.barButtonItem7.Caption = "暂停";
-      this.barButtonItem7.Id = 13;
-      this.barButtonItem7.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem7.ImageOptions.Image")));
-      this.barButtonItem7.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem7.ImageOptions.LargeImage")));
-      this.barButtonItem7.Name = "barButtonItem7";
-      this.barButtonItem7.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+      this.barButtonPause.Caption = "暂停";
+      this.barButtonPause.Id = 13;
+      this.barButtonPause.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonPause.ImageOptions.Image")));
+      this.barButtonPause.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonPause.ImageOptions.LargeImage")));
+      this.barButtonPause.Name = "barButtonPause";
+      this.barButtonPause.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+      this.barButtonPause.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonPause_ItemClick);
       // 
-      // barButtonItem8
+      // barButtonStop
       // 
-      this.barButtonItem8.Caption = "停止";
-      this.barButtonItem8.Id = 14;
-      this.barButtonItem8.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem8.ImageOptions.Image")));
-      this.barButtonItem8.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem8.ImageOptions.LargeImage")));
-      this.barButtonItem8.Name = "barButtonItem8";
-      this.barButtonItem8.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+      this.barButtonStop.Caption = "停止";
+      this.barButtonStop.Id = 14;
+      this.barButtonStop.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonStop.ImageOptions.Image")));
+      this.barButtonStop.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonStop.ImageOptions.LargeImage")));
+      this.barButtonStop.Name = "barButtonStop";
+      this.barButtonStop.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+      this.barButtonStop.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonStop_ItemClick);
       // 
-      // barButtonItem9
+      // barButtonResume
       // 
-      this.barButtonItem9.Caption = "继续";
-      this.barButtonItem9.Id = 15;
-      this.barButtonItem9.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem9.ImageOptions.Image")));
-      this.barButtonItem9.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem9.ImageOptions.LargeImage")));
-      this.barButtonItem9.Name = "barButtonItem9";
-      this.barButtonItem9.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+      this.barButtonResume.Caption = "继续";
+      this.barButtonResume.Id = 15;
+      this.barButtonResume.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonResume.ImageOptions.Image")));
+      this.barButtonResume.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonResume.ImageOptions.LargeImage")));
+      this.barButtonResume.Name = "barButtonResume";
+      this.barButtonResume.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+      this.barButtonResume.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonResume_ItemClick);
       // 
       // barButtonItem10
       // 
@@ -316,12 +327,27 @@
       this.barButtonItem10.Id = 16;
       this.barButtonItem10.Name = "barButtonItem10";
       // 
+      // barButtonItem11
+      // 
+      this.barButtonItem11.Caption = "显示";
+      this.barButtonItem11.Id = 17;
+      this.barButtonItem11.Name = "barButtonItem11";
+      // 
+      // barButtonItem12
+      // 
+      this.barButtonItem12.Caption = "视频";
+      this.barButtonItem12.Id = 19;
+      this.barButtonItem12.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("barButtonItem12.ImageOptions.SvgImage")));
+      this.barButtonItem12.Name = "barButtonItem12";
+      this.barButtonItem12.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem12_ItemClick);
+      // 
       // ribbonPage1
       // 
       this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup1,
             this.ribbonPageGroup2,
-            this.ribbonPageGroup3});
+            this.ribbonPageGroup3,
+            this.ribbonPageGroup4});
       this.ribbonPage1.Name = "ribbonPage1";
       this.ribbonPage1.Text = "开始";
       // 
@@ -345,27 +371,33 @@
       // 
       // ribbonPageGroup3
       // 
-      this.ribbonPageGroup3.ItemLinks.Add(this.barButtonItem6);
-      this.ribbonPageGroup3.ItemLinks.Add(this.barButtonItem9);
-      this.ribbonPageGroup3.ItemLinks.Add(this.barButtonItem7);
-      this.ribbonPageGroup3.ItemLinks.Add(this.barButtonItem8);
+      this.ribbonPageGroup3.ItemLinks.Add(this.barButtonRun);
+      this.ribbonPageGroup3.ItemLinks.Add(this.barButtonResume);
+      this.ribbonPageGroup3.ItemLinks.Add(this.barButtonPause);
+      this.ribbonPageGroup3.ItemLinks.Add(this.barButtonStop);
       this.ribbonPageGroup3.Name = "ribbonPageGroup3";
       this.ribbonPageGroup3.Text = "流程执行";
       // 
+      // ribbonPageGroup4
+      // 
+      this.ribbonPageGroup4.ItemLinks.Add(this.barButtonItem12);
+      this.ribbonPageGroup4.Name = "ribbonPageGroup4";
+      this.ribbonPageGroup4.Text = "工具";
+      // 
       // ribbonStatusBar1
       // 
-      this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 945);
+      this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 601);
       this.ribbonStatusBar1.Name = "ribbonStatusBar1";
       this.ribbonStatusBar1.Ribbon = this.ribbonControl1;
-      this.ribbonStatusBar1.Size = new System.Drawing.Size(1615, 31);
+      this.ribbonStatusBar1.Size = new System.Drawing.Size(1060, 31);
       // 
       // panelControl1
       // 
       this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.panelControl1.Location = new System.Drawing.Point(336, 147);
+      this.panelControl1.Location = new System.Drawing.Point(261, 143);
       this.panelControl1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
       this.panelControl1.Name = "panelControl1";
-      this.panelControl1.Size = new System.Drawing.Size(797, 521);
+      this.panelControl1.Size = new System.Drawing.Size(555, 196);
       this.panelControl1.TabIndex = 1;
       // 
       // dockManager1
@@ -396,11 +428,11 @@
       this.panelContainer1.Controls.Add(this.dockPanel5);
       this.panelContainer1.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right;
       this.panelContainer1.ID = new System.Guid("31a39c4d-741b-411b-96a0-ff862c3a209b");
-      this.panelContainer1.Location = new System.Drawing.Point(1133, 147);
+      this.panelContainer1.Location = new System.Drawing.Point(816, 143);
       this.panelContainer1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
       this.panelContainer1.Name = "panelContainer1";
-      this.panelContainer1.OriginalSize = new System.Drawing.Size(482, 200);
-      this.panelContainer1.Size = new System.Drawing.Size(482, 798);
+      this.panelContainer1.OriginalSize = new System.Drawing.Size(244, 200);
+      this.panelContainer1.Size = new System.Drawing.Size(244, 458);
       this.panelContainer1.Text = "panelContainer1";
       // 
       // dockPanel2
@@ -412,8 +444,8 @@
       this.dockPanel2.Location = new System.Drawing.Point(0, 0);
       this.dockPanel2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
       this.dockPanel2.Name = "dockPanel2";
-      this.dockPanel2.OriginalSize = new System.Drawing.Size(482, 235);
-      this.dockPanel2.Size = new System.Drawing.Size(482, 400);
+      this.dockPanel2.OriginalSize = new System.Drawing.Size(482, 230);
+      this.dockPanel2.Size = new System.Drawing.Size(244, 230);
       this.dockPanel2.Text = "任务模板";
       // 
       // dockPanel2_Container
@@ -422,7 +454,7 @@
       this.dockPanel2_Container.Location = new System.Drawing.Point(5, 23);
       this.dockPanel2_Container.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
       this.dockPanel2_Container.Name = "dockPanel2_Container";
-      this.dockPanel2_Container.Size = new System.Drawing.Size(473, 372);
+      this.dockPanel2_Container.Size = new System.Drawing.Size(235, 202);
       this.dockPanel2_Container.TabIndex = 0;
       // 
       // toolboxControl1
@@ -432,7 +464,7 @@
       this.toolboxControl1.Location = new System.Drawing.Point(0, 0);
       this.toolboxControl1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
       this.toolboxControl1.Name = "toolboxControl1";
-      this.toolboxControl1.Size = new System.Drawing.Size(473, 372);
+      this.toolboxControl1.Size = new System.Drawing.Size(235, 202);
       this.toolboxControl1.TabIndex = 0;
       // 
       // dockPanel5
@@ -440,11 +472,11 @@
       this.dockPanel5.Controls.Add(this.dockPanel5_Container);
       this.dockPanel5.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
       this.dockPanel5.ID = new System.Guid("4d86a21f-3bc0-4e2f-af4c-66f4cc842ade");
-      this.dockPanel5.Location = new System.Drawing.Point(0, 400);
+      this.dockPanel5.Location = new System.Drawing.Point(0, 230);
       this.dockPanel5.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
       this.dockPanel5.Name = "dockPanel5";
-      this.dockPanel5.OriginalSize = new System.Drawing.Size(482, 234);
-      this.dockPanel5.Size = new System.Drawing.Size(482, 398);
+      this.dockPanel5.OriginalSize = new System.Drawing.Size(482, 228);
+      this.dockPanel5.Size = new System.Drawing.Size(244, 228);
       this.dockPanel5.Text = "任务属性";
       // 
       // dockPanel5_Container
@@ -453,7 +485,7 @@
       this.dockPanel5_Container.Location = new System.Drawing.Point(5, 23);
       this.dockPanel5_Container.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
       this.dockPanel5_Container.Name = "dockPanel5_Container";
-      this.dockPanel5_Container.Size = new System.Drawing.Size(473, 371);
+      this.dockPanel5_Container.Size = new System.Drawing.Size(235, 201);
       this.dockPanel5_Container.TabIndex = 0;
       // 
       // propertyGrid2
@@ -461,7 +493,7 @@
       this.propertyGrid2.Dock = System.Windows.Forms.DockStyle.Fill;
       this.propertyGrid2.Location = new System.Drawing.Point(0, 0);
       this.propertyGrid2.Name = "propertyGrid2";
-      this.propertyGrid2.Size = new System.Drawing.Size(473, 371);
+      this.propertyGrid2.Size = new System.Drawing.Size(235, 201);
       this.propertyGrid2.TabIndex = 0;
       this.propertyGrid2.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.OnPropertyValueChanged);
       // 
@@ -480,19 +512,39 @@
       // 
       // dockPanel4_Container
       // 
+      this.dockPanel4_Container.Controls.Add(this.panel1);
       this.dockPanel4_Container.Controls.Add(this.pictureBox1);
       this.dockPanel4_Container.Location = new System.Drawing.Point(0, 0);
       this.dockPanel4_Container.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
       this.dockPanel4_Container.Name = "dockPanel4_Container";
-      this.dockPanel4_Container.Size = new System.Drawing.Size(791, 492);
+      this.dockPanel4_Container.Size = new System.Drawing.Size(549, 168);
       this.dockPanel4_Container.TabIndex = 0;
+      // 
+      // panel1
+      // 
+      this.panel1.AutoScroll = true;
+      this.panel1.AutoSize = true;
+      this.panel1.Controls.Add(this.pictureBox2);
+      this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.panel1.Location = new System.Drawing.Point(0, 0);
+      this.panel1.Name = "panel1";
+      this.panel1.Size = new System.Drawing.Size(549, 168);
+      this.panel1.TabIndex = 8;
+      // 
+      // pictureBox2
+      // 
+      this.pictureBox2.Location = new System.Drawing.Point(0, 0);
+      this.pictureBox2.Name = "pictureBox2";
+      this.pictureBox2.Size = new System.Drawing.Size(1200, 960);
+      this.pictureBox2.TabIndex = 0;
+      this.pictureBox2.TabStop = false;
       // 
       // pictureBox1
       // 
       this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
       this.pictureBox1.Location = new System.Drawing.Point(0, 0);
       this.pictureBox1.Name = "pictureBox1";
-      this.pictureBox1.Size = new System.Drawing.Size(791, 492);
+      this.pictureBox1.Size = new System.Drawing.Size(549, 168);
       this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
       this.pictureBox1.TabIndex = 7;
       this.pictureBox1.TabStop = false;
@@ -502,11 +554,11 @@
       this.dockPanel1.Controls.Add(this.controlContainer1);
       this.dockPanel1.Dock = DevExpress.XtraBars.Docking.DockingStyle.Left;
       this.dockPanel1.ID = new System.Guid("ffdb699d-8e11-4890-b7a0-ba789a8f9518");
-      this.dockPanel1.Location = new System.Drawing.Point(0, 147);
+      this.dockPanel1.Location = new System.Drawing.Point(0, 143);
       this.dockPanel1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
       this.dockPanel1.Name = "dockPanel1";
-      this.dockPanel1.OriginalSize = new System.Drawing.Size(336, 200);
-      this.dockPanel1.Size = new System.Drawing.Size(336, 798);
+      this.dockPanel1.OriginalSize = new System.Drawing.Size(261, 200);
+      this.dockPanel1.Size = new System.Drawing.Size(261, 458);
       this.dockPanel1.Text = "流程树";
       // 
       // controlContainer1
@@ -515,17 +567,19 @@
       this.controlContainer1.Location = new System.Drawing.Point(4, 23);
       this.controlContainer1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
       this.controlContainer1.Name = "controlContainer1";
-      this.controlContainer1.Size = new System.Drawing.Size(327, 771);
+      this.controlContainer1.Size = new System.Drawing.Size(252, 431);
       this.controlContainer1.TabIndex = 0;
       // 
       // treeList2
       // 
       this.treeList2.Dock = System.Windows.Forms.DockStyle.Fill;
       this.treeList2.Location = new System.Drawing.Point(0, 0);
+      this.treeList2.MinWidth = 17;
       this.treeList2.Name = "treeList2";
-      this.treeList2.Size = new System.Drawing.Size(327, 771);
+      this.treeList2.Size = new System.Drawing.Size(252, 431);
       this.treeList2.StateImageList = this.svgImageCollection1;
       this.treeList2.TabIndex = 0;
+      this.treeList2.TreeLevelWidth = 15;
       this.treeList2.FocusedNodeChanged += new DevExpress.XtraTreeList.FocusedNodeChangedEventHandler(this.OnFocusItemChange);
       // 
       // svgImageCollection1
@@ -539,11 +593,11 @@
       this.runLog.Dock = DevExpress.XtraBars.Docking.DockingStyle.Bottom;
       this.runLog.FloatVertical = true;
       this.runLog.ID = new System.Guid("781d9eae-0c39-40cb-bbe4-acc189d5b955");
-      this.runLog.Location = new System.Drawing.Point(336, 668);
+      this.runLog.Location = new System.Drawing.Point(261, 339);
       this.runLog.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
       this.runLog.Name = "runLog";
-      this.runLog.OriginalSize = new System.Drawing.Size(200, 277);
-      this.runLog.Size = new System.Drawing.Size(797, 277);
+      this.runLog.OriginalSize = new System.Drawing.Size(200, 262);
+      this.runLog.Size = new System.Drawing.Size(555, 262);
       this.runLog.Text = "执行日志";
       // 
       // dockPanel3_Container
@@ -552,7 +606,7 @@
       this.dockPanel3_Container.Location = new System.Drawing.Point(4, 24);
       this.dockPanel3_Container.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
       this.dockPanel3_Container.Name = "dockPanel3_Container";
-      this.dockPanel3_Container.Size = new System.Drawing.Size(789, 249);
+      this.dockPanel3_Container.Size = new System.Drawing.Size(547, 234);
       this.dockPanel3_Container.TabIndex = 0;
       // 
       // tabControl1
@@ -564,27 +618,27 @@
       this.tabControl1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
       this.tabControl1.Name = "tabControl1";
       this.tabControl1.SelectedIndex = 0;
-      this.tabControl1.Size = new System.Drawing.Size(789, 249);
+      this.tabControl1.Size = new System.Drawing.Size(547, 234);
       this.tabControl1.TabIndex = 0;
       // 
       // tabPage1
       // 
-      this.tabPage1.Location = new System.Drawing.Point(4, 23);
+      this.tabPage1.Location = new System.Drawing.Point(4, 22);
       this.tabPage1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
       this.tabPage1.Name = "tabPage1";
       this.tabPage1.Padding = new System.Windows.Forms.Padding(2, 1, 2, 1);
-      this.tabPage1.Size = new System.Drawing.Size(781, 222);
+      this.tabPage1.Size = new System.Drawing.Size(539, 208);
       this.tabPage1.TabIndex = 0;
       this.tabPage1.Text = "tabPage1";
       this.tabPage1.UseVisualStyleBackColor = true;
       // 
       // tabPage2
       // 
-      this.tabPage2.Location = new System.Drawing.Point(4, 23);
+      this.tabPage2.Location = new System.Drawing.Point(4, 22);
       this.tabPage2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
       this.tabPage2.Name = "tabPage2";
       this.tabPage2.Padding = new System.Windows.Forms.Padding(2, 1, 2, 1);
-      this.tabPage2.Size = new System.Drawing.Size(781, 222);
+      this.tabPage2.Size = new System.Drawing.Size(539, 208);
       this.tabPage2.TabIndex = 1;
       this.tabPage2.Text = "tabPage2";
       this.tabPage2.UseVisualStyleBackColor = true;
@@ -602,9 +656,9 @@
             this.documentGroup1});
       this.tabbedView1.Documents.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseDocument[] {
             this.document2});
-      dockingContainer1.Element = this.documentGroup1;
+      dockingContainer2.Element = this.documentGroup1;
       this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
-            dockingContainer1});
+            dockingContainer2});
       // 
       // imageCollection1
       // 
@@ -616,9 +670,9 @@
       // 
       // MainFrame
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(1615, 976);
+      this.ClientSize = new System.Drawing.Size(1060, 632);
       this.Controls.Add(this.panelControl1);
       this.Controls.Add(this.panelContainer1);
       this.Controls.Add(this.runLog);
@@ -626,11 +680,11 @@
       this.Controls.Add(this.ribbonStatusBar1);
       this.Controls.Add(this.ribbonControl1);
       this.FormBorderEffect = DevExpress.XtraEditors.FormBorderEffect.Shadow;
-      this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.Name = "MainFrame";
       this.Ribbon = this.ribbonControl1;
       this.StatusBar = this.ribbonStatusBar1;
       this.Text = "Form1";
+      this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClose);
       this.Load += new System.EventHandler(this.Form1_Load);
       ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.document2)).EndInit();
@@ -646,6 +700,8 @@
       this.dockPanel4.ResumeLayout(false);
       this.dockPanel4_Container.ResumeLayout(false);
       this.dockPanel4_Container.PerformLayout();
+      this.panel1.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
       this.dockPanel1.ResumeLayout(false);
       this.controlContainer1.ResumeLayout(false);
@@ -703,10 +759,10 @@
     private DevExpress.XtraBars.BarButtonItem barButtonItem3;
     private DevExpress.XtraBars.BarButtonItem barButtonItem4;
     private DevExpress.XtraBars.BarButtonItem barButtonItem5;
-    private DevExpress.XtraBars.BarButtonItem barButtonItem6;
-    private DevExpress.XtraBars.BarButtonItem barButtonItem7;
-    private DevExpress.XtraBars.BarButtonItem barButtonItem8;
-    private DevExpress.XtraBars.BarButtonItem barButtonItem9;
+    private DevExpress.XtraBars.BarButtonItem barButtonRun;
+    private DevExpress.XtraBars.BarButtonItem barButtonPause;
+    private DevExpress.XtraBars.BarButtonItem barButtonStop;
+    private DevExpress.XtraBars.BarButtonItem barButtonResume;
     private DevExpress.XtraBars.BarButtonItem barButtonItem10;
     private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
     private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
@@ -716,6 +772,11 @@
     private DevExpress.Utils.SvgImageCollection svgImageCollection1;
     private System.Windows.Forms.PropertyGrid propertyGrid2;
     private System.Windows.Forms.ErrorProvider errorProvider1;
+    private System.Windows.Forms.Panel panel1;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem11;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup4;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem12;
+    private System.Windows.Forms.PictureBox pictureBox2;
   }
 }
 

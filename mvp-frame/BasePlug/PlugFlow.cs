@@ -51,7 +51,7 @@ namespace MVPlugIn
   public class FlowProperty : BaseProperty
   {
     [DisplayName("执行次数")]
-    public int repeat_times
+    public int repeatTimes
     {
       get;
       set;

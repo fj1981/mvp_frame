@@ -19,6 +19,7 @@ namespace mvp_frame
       Application.SetCompatibleTextRenderingDefault(false);
 
       BonusSkins.Register();
+
       Application.Run(new MainFrame());
     }
   }
