@@ -115,17 +115,49 @@ namespace mvp_frame
       return true;
     }
 
-
-
-    public void SaveProject()
+    public bool IsNewProject()
     {
-      if(path_.Length != 0 && root_obj_ != null)
+      return path_ == null;
+    }
+
+    public String Path()
+    {
+      return path_;
+    }
+
+    public bool HasContent()
+    {
+      return root_obj_ != null;
+    }
+
+    public bool SaveProject(String path)
+    {
+      if(null != path)
       {
-        System.Text.UTF8Encoding utf8 = new System.Text.UTF8Encoding(false);
-        root_obj_.UpdateProperty(true);
-        var charData = JsonConvert.SerializeObject(root_obj_);
-        File.WriteAllText(path_, charData, utf8);
+        path_ = path;
       }
+      if(null == path_)
+      {
+        return false;
+      }
+      try
+      {
+        if (path_.Length != 0 && root_obj_ != null)
+        {
+          System.Text.UTF8Encoding utf8 = new System.Text.UTF8Encoding(false);
+          root_obj_.UpdateProperty(true);
+          var charData = JsonConvert.SerializeObject(root_obj_);
+          File.WriteAllText(path_, charData, utf8);
+        }
+      }
+      catch(Exception e)
+      {
+        Console.Write(e.ToString());
+        return false;
+      }
+
+      return true;
+
     }
   }
 }

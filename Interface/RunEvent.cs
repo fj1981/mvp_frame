@@ -26,6 +26,13 @@ namespace MVPlugIn
       notifyLiveDataReady_ += keepImageData;
       notifyCaptureDataReady_ = notifyCaptureDataReady;
     }
+
+    public RunEvent(Action<HObject> onLiveDataReady, object p)
+    {
+      this.onLiveDataReady = onLiveDataReady;
+      this.p = p;
+    }
+
     public void NotifyLiveData(HObject ho_Image)
     {
       notifyLiveDataReady_?.Invoke(ho_Image);
@@ -60,5 +67,7 @@ namespace MVPlugIn
       image_ = ho_Image;
     }
     private HObject image_;
+    private Action<HObject> onLiveDataReady;
+    private object p;
   }
 }
