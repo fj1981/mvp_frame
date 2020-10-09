@@ -229,6 +229,10 @@ namespace mvp_frame
       {
         foreach (var e in children)
         {
+          if(!for_save)
+          {
+            e.parent = new WeakReference(this);
+          }
           e.UpdateProperty(for_save);
         }
       }

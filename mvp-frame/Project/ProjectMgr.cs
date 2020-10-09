@@ -44,6 +44,10 @@ namespace mvp_frame
         int r = fsRead.Read(heByte, 0, heByte.Length);
         string myStr = System.Text.Encoding.UTF8.GetString(heByte);
         root_obj_ = JsonConvert.DeserializeObject< ToolObj>(myStr);
+        if(root_obj_ != null)
+        {
+         // root_obj_.UpdateProperty()
+        }
         TaskMgr.Instance.Init(root_obj_);
         onPrjLoadFininsh? .Invoke(root_obj_);
 

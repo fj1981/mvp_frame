@@ -97,14 +97,14 @@ namespace MVPlugIn
  
     }
 
-    protected override List<ParamDesc> GetDefultInputsDesc()
+    protected override List<ParamDesc> GetDefaultInputsDesc()
     {
       var ret = new List<ParamDesc>();
       ret.Add(new ParamDesc(DataType.DT_BOOL, $"vi{objCount++}"));
       return ret;
     }
 
-    protected override List<ParamDesc> GetDefultOutputsDesc()
+    protected override List<ParamDesc> GetDefaultOutputsDesc()
     {
       var ret = new List<ParamDesc>();
       ret.Add(new ParamDesc(DataType.DT_IMAGEOBJ, $"vo{objCount++}"));
