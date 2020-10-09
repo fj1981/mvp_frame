@@ -103,19 +103,19 @@ namespace MVPlugIn
     {
       if (InputParams == null)
       {
-        InputParams = GetDefultInputsDesc();
+        InputParams = GetDefaultInputsDesc();
       }
       if (OutputParams == null)
       {
-        OutputParams = GetDefultOutputsDesc();
+        OutputParams = GetDefaultOutputsDesc();
       }
     }
-    protected virtual List<ParamDesc> GetDefultInputsDesc()
+    protected virtual List<ParamDesc> GetDefaultInputsDesc()
     {
       return new List<ParamDesc>();
     }
 
-    protected virtual List<ParamDesc> GetDefultOutputsDesc()
+    protected virtual List<ParamDesc> GetDefaultOutputsDesc()
     {
       return new List<ParamDesc>();
     }

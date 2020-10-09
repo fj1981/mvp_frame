@@ -48,7 +48,7 @@ namespace MVPlugIn
   public class Property : BaseProperty
   {
     private static int objCount = 1;
-    protected override List<ParamDesc> GetDefultOutputsDesc()
+    protected override List<ParamDesc> GetDefaultOutputsDesc()
     {
       var ret = new List<ParamDesc>();
       ret.Add(new ParamDesc(DataType.DT_BOOL, $"Trigger{objCount++}"));
